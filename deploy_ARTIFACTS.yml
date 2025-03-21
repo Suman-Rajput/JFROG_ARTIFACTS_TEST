@@ -3,10 +3,10 @@
   hosts: localhost
   gather_facts: no
   vars:
-    jfrog_url: "https://trialu88h6v.jfrog.io/artifactory/local-docker/dummy.txt"
-    download_dir: "/home/suman_rajput"
-    jfrog_user:
-    jfrog_password:
+    jfrog_url: "https://trialu88h6v.jfrog.io/artifactory/local-docker/dummy.txt" #copy the url from artifacts/repo
+    download_dir: "/home/suman_rajput" #Where you want to store file
+    jfrog_user: "Username"  #your jfrog username/email 
+    jfrog_password: "Password" #your jfrog pswd/token
 
   tasks:
     - name: Ensure the deployment directory exists

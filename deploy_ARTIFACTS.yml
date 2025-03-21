@@ -1,0 +1,37 @@
+---
+- name: Download Artifact from JFrog Artifactory
+  hosts: localhost
+  gather_facts: no
+  vars:
+    jfrog_url: "https://trialu88h6v.jfrog.io/artifactory/local-docker/dummy.txt"
+    download_dir: "/home/suman_rajput"
+    jfrog_user:
+    jfrog_password:
+
+  tasks:
+    - name: Ensure the deployment directory exists
+      file:
+        path: "{{ download_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Download Artifact from JFrog
+      get_url:
+        url: "{{ jfrog_url }}"
+        dest: "{{ download_dir }}/dummy.txt"
+        username: "{{ jfrog_user }}"
+        password: "{{ jfrog_password }}"
+        force_basic_auth: yes
+        mode: '0644'
+
+    - name: Verify Artifact Download
+      stat:
+        path: "{{ download_dir }}/dummy.txt"
+      register: artifact_status
+
+    - name: Print Download Status
+      debug:
+        msg: "Artifact downloaded successfully!" 
+      when: artifact_status.stat.exists
+
+
